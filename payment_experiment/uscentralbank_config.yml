@@ -1,0 +1,28 @@
+discovery-url: http://9.201.17.19:8080/auth/realms/demo
+client-id: payment
+client-secret: 1fdeaef3-5b0c-4f01-b9ff-8dcab18f032a
+enable-default-deny: true
+secure-cookie: false
+encryption_key: AgXa7xRcoClDEU0ZDSH4X0XhL5Qy2Z2j
+listen: :13000
+redirection-url: http://9.201.17.19:13000
+upstream-url: http://9.201.17.19:19090
+
+match-claims:
+  cc_user_id: .*
+  cc_account_id: .*
+
+add-claims:
+  - cc_user_id
+  - cc_account_id
+
+scopes:
+- payment
+resources:
+- uri: /test
+  methods:
+  - GET
+  groups:
+  - /uscentralbank
+headers:
+  gateway: http://9.201.17.19:13000

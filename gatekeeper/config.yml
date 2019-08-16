@@ -1,0 +1,29 @@
+discovery-url: http://9.201.17.19:8080/auth/realms/demo
+client-id: vanilla
+client-secret: 8bb0e4b7-bfb5-45a8-9525-78e1e683568b
+enable-default-deny: true
+secure-cookie: false
+encryption_key: AgXa7xRcoClDEU0ZDSH4X0XhL5Qy2Z2j
+listen: :3000
+redirection-url: http://9.201.17.19:3000
+upstream-url: http://9.201.17.19:9090
+
+scopes:
+- good-service
+
+resources:
+- uri: /test
+  methods:
+  - GET
+  roles:
+  - vanilla:admin
+
+- uri: /user
+  methods:
+  - GET
+  roles:
+  - vanilla:user
+  require-any-role: true
+  
+headers:
+  gateway: http://9.201.17.19:3000
