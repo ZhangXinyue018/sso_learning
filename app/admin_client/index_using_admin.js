@@ -1,6 +1,7 @@
 'use strict';
 
 var KeycloakAdminClient = require('keycloak-admin')["default"];
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 const kcAdminClient = new KeycloakAdminClient({
     baseUrl: 'http://localhost:8080/auth',
