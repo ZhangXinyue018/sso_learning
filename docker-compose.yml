@@ -4,16 +4,38 @@ networks:
   basic:
 
 services:
+  postgres:
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: p@ssw0rd
+    networks:
+      - basic
   keycloak:
     image: jboss/keycloak
     container_name: keycloak
     ports: 
       - 8080:8080
     environment:
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=postgres
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_SCHEMA=public
+      - DB_PASSWORD=p@ssw0rd
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
+    volumes:
+      - ./gatekeeper/mytheme/:/opt/jboss/keycloak/themes/mytheme/:ro
+      - ./gatekeeper/mytheme/:/opt/jboss/keycloak/themes/demotheme/:ro
+      - ./gatekeeper/demotheme/email:/opt/jboss/keycloak/themes/demotheme/email:ro
     networks:
       - basic
+    depends_on:
+      - postgres
 
   gatekeeper:
     image: keycloak/keycloak-gatekeeper
