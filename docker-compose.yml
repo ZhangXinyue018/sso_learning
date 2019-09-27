@@ -12,6 +12,8 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: p@ssw0rd
+    ports:
+      - 5432:5432
     networks:
       - basic
   keycloak:

@@ -1,3 +1,3 @@
 set -e
 
-docker-compose -f ./docker-compose.yml up -d keycloak
+docker-compose -f ./docker-compose.yml up -d postgres keycloak
